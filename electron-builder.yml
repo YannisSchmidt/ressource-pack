@@ -1,0 +1,39 @@
+appId: fr.atelier.resourcepack
+productName: Atelier Resource Pack
+copyright: Atelier Resource Pack
+directories:
+  output: release
+  buildResources: build
+files:
+  - dist/**/*
+  - package.json
+  - '!**/*.map'
+asar: true
+compression: normal
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+  icon: build/icon.png
+  artifactName: AtelierResourcePack-${version}-${arch}.${ext}
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Atelier Resource Pack
+portable:
+  artifactName: AtelierResourcePack-portable-${version}.${ext}
+linux:
+  target:
+    - AppImage
+  category: Graphics
+  icon: build/icon.png
+mac:
+  target:
+    - dmg
+  category: public.app-category.graphics-design
+  icon: build/icon.png
