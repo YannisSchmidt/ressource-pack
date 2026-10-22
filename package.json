@@ -1,0 +1,53 @@
+{
+  "name": "atelier-resource-pack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Atelier Resource Pack — éditeur de resource packs Minecraft Java Edition",
+  "author": "Atelier Resource Pack",
+  "license": "MIT",
+  "main": "dist/electron/main/main.js",
+  "scripts": {
+    "dev:web": "tsx src/server/webServer.ts",
+    "dev:desktop": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
+    "build": "npm run build:renderer && npm run build:main",
+    "build:renderer": "vite build",
+    "build:main": "tsc -p tsconfig.main.json",
+    "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.web.json --noEmit && tsc -p tsconfig.node.json --noEmit && tsc -p tsconfig.tests.json --noEmit",
+    "start": "npm run build && electron .",
+    "dist:win": "npm run build && electron-builder --win nsis portable",
+    "dist:linux": "npm run build && electron-builder --linux AppImage",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo:assets": "tsx scripts/generate-demo.ts",
+    "run:desktop": "electron ."
+  },
+  "dependencies": {
+    "pngjs": "^7.0.0",
+    "yauzl": "^3.4.0",
+    "yazl": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@types/yauzl": "^2.10.3",
+    "@types/yazl": "^3.3.1",
+    "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12",
+    "happy-dom": "^21.0.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "vite": "^7.1.0",
+    "vitest": "^3.2.0",
+    "wait-on": "^8.0.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
