@@ -3,12 +3,12 @@
 ## 1. Exécution
 
 ```bash
-npm test          # Vitest, 8 fichiers, 72 tests
+npm test          # Vitest, 8 fichiers, 78 tests
 npm run typecheck # 4 configurations TypeScript (main, web, node, tests)
 npm run build     # Vite + tsc
 ```
 
-Dernière exécution dans cet environnement : **72 tests réussis**, typecheck sans erreur,
+Dernière exécution dans cet environnement : **78 tests réussis**, typecheck sans erreur,
 build renderer + main réussi.
 
 Les tests utilisent de vrais fichiers temporaires, de vraies archives ZIP et de vrais PNG.
@@ -24,6 +24,7 @@ Aucun mock de `fs` pour le noyau : les comportements testés sont ceux de produc
 | `tests/export.test.ts` | 14 | export sélectif, ZIP, versions, icône, conflits, disque plein |
 | `tests/service.test.ts` | 3 | RPC, tâches, réglages, restrictions démo, intégrité |
 | `tests/renderer.test.tsx` | 5 | montage React, explorateur, éditeur, modale d'export (happy-dom) |
+| `tests/scripts.test.ts` | 6 | scripts Windows : CRLF, ASCII, cibles de saut, scripts npm, intégrité SHA-256 |
 
 ## 2. Cas obligatoires (section 14 du cahier des charges)
 
@@ -89,5 +90,11 @@ Aucun Minecraft n'est installé dans l'environnement. Les tests sont **structure
 - Les tests d'accès refusé utilisent `chmod 000` et sont ignorés si la suite tourne en root.
 - Le rendu canvas n'est pas vérifié visuellement (pas de navigateur graphique disponible) ; les
   opérations pixel sont testées indépendamment, et l'interface est montée avec happy-dom.
+- Les scripts `downloadALL.bat` / `start.bat` n'ont pas été exécutés (environnement Linux) :
+  leur syntaxe est contrôlée par une suite dédiée (`tests/scripts.test.ts` : existence, CRLF,
+  absence de caractère non-ASCII, cibles de saut valides, blocs équilibrés, scripts npm référencés,
+  vérification SHA-256 avant extraction, absence de commande destructive) et chaque commande sous-jacente
+  (`npm ci`/`npm install`, `npm run demo:assets`, `npm run build`, `npm run run:desktop`) est
+  testée ou vérifiée séparément. La vérification SHA-256 s'appuie sur `Get-FileHash`.
 - L'installateur Windows n'a pas été produit dans ce sandbox (binaire Electron non téléchargeable) ;
   la procédure de build est fournie et testée jusqu'à la compilation TypeScript/Vite.

@@ -18,7 +18,8 @@
     "dist:linux": "npm run build && electron-builder --linux AppImage",
     "test": "vitest run",
     "test:watch": "vitest",
-    "demo:assets": "tsx scripts/generate-demo.ts"
+    "demo:assets": "tsx scripts/generate-demo.ts",
+    "run:desktop": "electron ."
   },
   "dependencies": {
     "pngjs": "^7.0.0",

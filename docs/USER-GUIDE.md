@@ -1,5 +1,16 @@
 # Guide utilisateur
 
+## 0. Démarrer sous Windows (méthode la plus simple)
+
+1. **`downloadALL.bat`** (double-clic) : télécharge Node.js si nécessaire, les dépendances,
+   le moteur Electron, les ressources de démonstration, puis compile l'application.
+   Le script indique chaque étape et s'arrête avec un message clair en cas de problème réseau.
+2. **`start.bat`** (double-clic) : démarre l'application. Il relance l'installation si elle est
+   incomplète et recompile seulement si nécessaire.
+
+Les deux scripts n'ont besoin d'aucun droit administrateur et ne touchent jamais aux fichiers de
+vos ressources Minecraft.
+
 ## 1. Créer un projet
 
 1. Cliquer sur **Créer un projet** (écran d'accueil) ou **Nouveau projet** (fenêtre Projets).

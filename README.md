@@ -29,6 +29,32 @@ entièrement en français, utilisable hors ligne.
 
 Prérequis : **Node.js 22+** et npm 10+ (Windows 10/11, macOS ou Linux pour le développement).
 
+### Windows : installation en un clic (aucune compétence requise)
+
+1. Récupérez le dossier du projet (clone Git ou archive ZIP décompressée).
+2. Double-cliquez sur **`downloadALL.bat`** — il télécharge et prépare tout :
+   - Node.js 22+ **si aucun Node 22+ n'est présent**, installé localement dans `.tools\node`
+     (aucun droit administrateur, aucune modification du système) ;
+   - les dépendances npm du projet ;
+   - le moteur Electron de l'application de bureau ;
+   - les ressources de démonstration ;
+   - la compilation de l'application.
+3. Double-cliquez sur **`start.bat`** — l'application démarre. Si quelque chose manque,
+   `start.bat` relance automatiquement `downloadALL.bat`, puis recompile si nécessaire.
+
+Garanties des scripts :
+
+- liste des versions récupérée sur `nodejs.org`, **somme SHA-256 vérifiée** avant extraction ;
+- installation **incrémentale** ensuite : Electron (~100 Mo) n'est pas re-téléchargé à chaque fois ;
+- messages en français, échecs expliqués (réseau, proxy, antivirus) avec la marche à suivre ;
+- aucune ressource Minecraft n'est lue, modifiée ou supprimée par l'installation.
+
+> Si Windows SmartScreen ou un antivirus bloque un `.bat` téléchargé : clic droit →
+> Propriétés → « Débloquer », ou exécutez-le depuis le dossier du projet. Derrière un proxy
+> d'entreprise, définissez `ELECTRON_MIRROR` puis relancez `downloadALL.bat`.
+
+### Toutes plateformes (ligne de commande)
+
 ```bash
 npm install
 ```
@@ -165,7 +191,7 @@ documentée dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#mise-à-jour-de-la-
 ## 6. Tests
 
 ```bash
-npm test          # 72 tests (Vitest) : noyau, export, service, interface React
+npm test          # 78 tests (Vitest) : noyau, export, service, interface React
 npm run typecheck # 4 configurations TypeScript
 npm run build     # renderer (Vite) + main/preload (tsc)
 ```
@@ -196,7 +222,7 @@ src/
   server/     passerelle HTTP locale pour l'aperçu web (même service, dossier démo restreint)
   renderer/   React : interface, éditeur d'image, éditeur de texte, modales
 scripts/      générateur de ressources de démonstration
-tests/        72 tests Vitest (dont tests d'interface happy-dom)
+tests/        78 tests Vitest (dont tests d'interface happy-dom)
 docs/         architecture, tests, guide utilisateur
 ```
 
